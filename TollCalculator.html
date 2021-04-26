@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<style> .btn{border:1px solid black; padding:5px;display:inline-block} </style>
+</head>
+	<body>
+	<h1>Pennsylvania Turnpike Commission Prototype Toll Calculator</h1>
+	<label for="on">Select the interchange that you will be getting on the Pennsylvania Turnpike from the following pull-down menu:</label>
+	<select name="on" id="on">
+	   <option value="30">30 - Warrendale</option>
+	   <option value="39">39 - Butler Valley</option>
+	   <option value="48">48 - Allegheny Valley</option>
+	   <option value="57">57 - Pittsburgh</option>
+	   <option value="67">67 - Irwin</option>
+	   <option value="75">75 - New Stanton</option>
+	   <option value="91">91 - Donegal</option>
+	   <option value="110">110 - Somerset</option>
+	   <option value="146">146 - Bedford</option>
+	   <option value="161">161 - Breezewood</option>
+	   <option value="180">180 - Fort Littleton</option>
+	   <option value="189">189 - Willow Hill</option>
+	   <option value="201">201 - Blue Mountain</option>
+	   <option value="226">226 - Carlisle</option>
+	   <option value="236">236 - Gettysburg Pike </option>
+	   <option value="242">242 - Harrisburg West Shore</option>
+	   <option value="247">247 - Harrisburg East</option>
+	   <option value="266">266 - Lebanon-Lancaster</option>
+	   <option value="286">286 - Reading</option>
+	   <option value="298">298 - Morgantown</option>
+	   <option value="312">312 - Downingtown</option>
+	   <option value="320">320 - SR29</option>
+	   <option value="326">326 - Valley Forge </option>
+	   <option value="333">333 - Norristown</option>
+	   <option value="339">339 - Fort Washington</option>
+	   <option value="340">340 - Virginia Dr</option>
+	   <option value="343">343 - Willow Grove</option>
+	   <option value="351">351 - Bensalem</option>
+	   <option value="352">352 - Street Rd </option>
+	   <option value="353">353 - Neshaminy Falls</option>
+
+
+  </select>
+	<label for="off">Select the interchange that you will be getting off of the Pennsylvania Turnpike from the following pull-down menu:</label>
+	<select name="off" id="off">
+        <option value="30">30 - Warrendale</option>
+        <option value="39">39 - Butler Valley</option>
+        <option value="48">48 - Allegheny Valley</option>
+        <option value="57">57 - Pittsburgh</option>
+        <option value="67">67 - Irwin</option>
+        <option value="75">75 - New Stanton</option>
+        <option value="91">91 - Donegal</option>
+        <option value="110">110 - Somerset</option>
+        <option value="146">146 - Bedford</option>
+        <option value="161">161 - Breezewood</option>
+        <option value="180">180 - Fort Littleton</option>
+        <option value="189">189 - Willow Hill</option>
+        <option value="201">201 - Blue Mountain</option>
+        <option value="226">226 - Carlisle</option>
+        <option value="236">236 - Gettysburg Pike </option>
+        <option value="242">242 - Harrisburg West Shore</option>
+        <option value="247">247 - Harrisburg East</option>
+        <option value="266">266 - Lebanon-Lancaster</option>
+        <option value="286">286 - Reading</option>
+        <option value="298">298 - Morgantown</option>
+        <option value="312">312 - Downingtown</option>
+        <option value="320">320 - SR29</option>
+        <option value="326">326 - Valley Forge </option>
+        <option value="333">333 - Norristown</option>
+        <option value="339">339 - Fort Washington</option>
+        <option value="340">340 - Virginia Dr</option>
+        <option value="343">343 - Willow Grove</option>
+        <option value="351">351 - Bensalem</option>
+        <option value="352">352 - Street Rd </option>
+        <option value="353">353 - Neshaminy Falls</option>
+  </select>
+  <p>How will you be paying your toll? E-Z Pass or Cash?</p>
+  <select name="pay" id="pay">
+	<option value="cash"> Cash</option>
+	<option value="EZPass"> EZ Pass </option>
+</select>
+	<input type="button" class="btn btn-primary" id="btn_get_toll" value="Get Toll">
+	
+	<script>
+
+		// Our API address and port goes here. It can be an IP address or DNS name.
+		// In this case it is the address of the server hosting the application,
+		//  which is the same server running the web server (IIS)
+		var ipAddressAndPort = "127.0.0.1" + ":8080";
+
+
+		// When you click the object with id #btn_say_hello, execute a function that
+		// does the following:
+		// - Creates a variable called namePassed with the value of the nameEntered textbox
+		// - Sends a HTTP GET request using the IP address and port, with a route of /sayhello,
+		//   and with the parameter of namePassed and it's value from the textbox
+		// - Presents an alert with what is returned from the Node.js file (contained in 'data')
+		$('#btn_get_toll').click(function(){
+			startLoc = $('#on').val();
+			endLoc = $('#off').val(); // << CHANGED
+			payment = $('#pay').val(); // << ADDED
+
+			//$.get('http://' + ipAddressAndPort + '/getToll',{'interchangeEnter' : onTurnpike,'interchangeExit' : offTurnpike,'Payment' : Payment}, function(data){
+			$.get('http://' + ipAddressAndPort + '/getToll',{'interchangeEnter' : startLoc,'interchangeExit' : endLoc,'Payment' : payment}, function(data){   // CHANGED
+			alert(data);
+			})
+		})
+
+	</script>
+	</body>
+</html>
