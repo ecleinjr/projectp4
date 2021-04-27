@@ -42,7 +42,7 @@ app.get('/getToll', function(req,res){
 	//	console.log("Please Enter Interchange Entrance")	 
 	//} 
 	
-	//else if (Payment = 'EZPass'){
+	//else if (Payment == 'EZPass'){
     if (Payment = 'EZPass'){
         const result = connection.query("SELECT toll FROM tollschedule.ezpasstollschedule WHERE interchangeEnter=" + interchangeEnter + " AND interchangeExit=" + interchangeExit);
 		console.log('The toll from ' + interchangeEnter + ' to ' + interchangeExit + " paying with " + Payment + " is " + result[0].toll); // CHANGED
